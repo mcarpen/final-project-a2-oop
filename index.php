@@ -21,8 +21,13 @@ $articleRepository = $container->get('doctrine.repository.article');
 
 /** @var \App\Entity\Article $article */
 $article = $articleRepository->find(4);
-dump($article);
-dump($admin);
+
+/** @var Twig_Environment $twig */
+$twig = $container->get('twig');
+
+echo $twig->render('homepage.html.twig', [
+    'title' => 'Homepage',
+]);
 
 /*
 $article->setAuthor($admin);

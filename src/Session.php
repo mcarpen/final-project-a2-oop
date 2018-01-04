@@ -6,12 +6,12 @@ namespace App;
 
 class Session
 {
-    const SESSION_STARTED = true;
-    const SESSION_NOT_STARTED = false;
-
     private $sessionState = self::SESSION_NOT_STARTED;
 
     private static $instance;
+
+    const SESSION_STARTED = true;
+    const SESSION_NOT_STARTED = false;
 
     public static function getInstance()
     {

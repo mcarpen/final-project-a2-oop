@@ -30,9 +30,11 @@ if (! isset($session->username)) {
             $session->destroy();
         }
     } else {
+        isset($_GET['accessDenied']) ? $accessDenied = true : $accessDenied = false;
         echo $container->get('twig')->render('login.html.twig', [
             'title' => 'Login',
             'errors' => $errors,
+            'accessDenied' => $accessDenied,
         ]);
     }
 } else {

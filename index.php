@@ -25,10 +25,12 @@ $article = $articleRepository->find(4);
 $twig = $container->get('twig');
 
 isset($_GET['loggedIn']) ? $loggedIn = true : $loggedIn = false;
+isset($_GET['loggedOut']) ? $loggedOut = true : $loggedOut = false;
 
 echo $twig->render('homepage.html.twig', [
-    'title' => 'Homepage',
-    'loggedIn' => $loggedIn,
+    'title'     => 'Homepage',
+    'loggedIn'  => $loggedIn,
+    'loggedOut' => $loggedOut,
 ]);
 
 /*

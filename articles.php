@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
-$container = require __DIR__.'/bootstrap.php';
+$container = require __DIR__ . '/bootstrap.php';
 
 // 1.
 dump(

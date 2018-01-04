@@ -12,25 +12,28 @@
     <header>
         {% block header %}
             <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <a class="navbar-brand" href="#"><3 OOP</a>
+                <a class="navbar-brand" href="index.php"><3 OOP</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="btn nav-link disabled" role="button" aria-disabled="true">Disabled</a>
+                            <a href="#" class="btn nav-link disabled">Disabled</a>
                         </li>
                     </ul>
-                    <form class="form-inline mt-2 mt-md-0">
-                        <a href="#" class="btn btn-outline-success my-2 my-sm-0">Login</a>
-                    </form>
+                    {% if isLogged %}
+                        <span class="navbar-text mr-3">Welcome {{ username }}</span>
+                        <a href="logout.php" class="btn btn-outline-success my-2 my-sm-0">Log out</a>
+                    {% else %}
+                        <a href="login.php" class="btn btn-outline-success my-2 my-sm-0">Sign in</a>
+                    {% endif %}
                 </div>
             </nav>
         {% endblock %}
@@ -39,9 +42,7 @@
         {% block main %}{% endblock %}
     </main>
     <footer class="container">
-        {% block footer %}
-            <p class="small">Lorem ipsum dolor sit amet.</p>
-        {% endblock %}
+        {% block footer %}{% endblock %}
     </footer>
 {% endblock %}
 

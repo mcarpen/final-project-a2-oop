@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+    {% if loggedIn %}
+        <div class="alert alert-success" role="alert">
+            You have been successfully logged in
+        </div>
+    {% endif %}
     Hello World!!!!
 {% endblock %}

@@ -1,7 +1,6 @@
 <?php
-
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
-$container = require __DIR__.'/bootstrap.php';
+$container = require __DIR__ . '/bootstrap.php';
 
 use App\Entity\User;
 
@@ -25,8 +24,11 @@ $article = $articleRepository->find(4);
 /** @var Twig_Environment $twig */
 $twig = $container->get('twig');
 
+isset($_GET['loggedIn']) ? $loggedIn = true : $loggedIn = false;
+
 echo $twig->render('homepage.html.twig', [
     'title' => 'Homepage',
+    'loggedIn' => $loggedIn,
 ]);
 
 /*

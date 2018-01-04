@@ -4,11 +4,17 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Article;
 use App\Entity\User;
+use App\Session;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+
+global $session;
+
+$session = Session::getInstance();
+$isLogged = isset($session->username);
 
 $params    = require __DIR__ . '/parameters.php';
 $container = new ContainerBuilder();
@@ -80,5 +86,10 @@ $container
     ->register('twig', Twig_Environment::class)
     ->addArgument(new Reference('twig_loader'))
     ->addArgument(['cache' => false]);
+
+$container->get('twig')->addGlobal('isLogged', $isLogged);
+if ($isLogged) {
+    $container->get('twig')->addGlobal('username', $session->username);
+}
 
 return $container;

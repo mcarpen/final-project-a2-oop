@@ -10,22 +10,37 @@
         <div class="card-header">
             <h5 class="float-left">{{ title }}</h5>
             <div class="float-right">
-                <a href="admin_users_list.php?page={{ page }}" role="button" class="btn btn-outline-primary">Back to list</a>
+                <a href="admin_articles_list.php?page={{ page }}" role="button" class="btn btn-outline-primary">Back to list</a>
             </div>
         </div>
         <div class="card-body">
-            <form action="admin_users_edit.php?id={{ id }}&page={{ page }}" method="post">
+            <form action="admin_articles_edit.php?id={{ id }}&page={{ page }}" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" value="{{ username }}" required>
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="name" value="{{ name }}" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" placeholder="Password">
-                    <small id="passwordHelp" class="form-text text-muted">Don't type anything if you don't want to change it!</small>
+                    <label for="textarea">Content</label>
+                    <textarea class="form-control" id="content" name="content" required>{{ content }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status">
+                        {% for status,name in statuses|keys %}
+                            <option value="{{ status }}" {% if status is same as(currentStatus) %} selected {% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <select class="form-control" id="author" name="author">
+                        {% for user in users %}
+                            <option value="{{ user.id }}" {% if user.id is same as(currentAuthor) %} selected {% endif %}>{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Update it!</button>
-                <a href="admin_users_list.php?page={{ page }}" role="button" class="btn btn-info">Cancel</a>
+                <a href="admin_articles_list.php?page={{ page }}" role="button" class="btn btn-info">Cancel</a>
             </form>
         </div>
     </div>

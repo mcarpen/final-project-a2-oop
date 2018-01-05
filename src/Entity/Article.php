@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\PrePersist;
 
 /**
+ * @HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @ORM\Table(name="article")
  */
@@ -47,10 +50,13 @@ class Article
      */
     private $author;
 
-    const STATUS_PUBLISHED   = 0;
+    /** @ORM\Column(name="created_at", type="string", length=255) */
+    private $createdAt;
+
+    const STATUS_PUBLISHED = 0;
     const STATUS_UNPUBLISHED = 1;
-    const STATUS_DRAFT       = 2;
-    const MAX_PER_PAGE       = 6;
+    const STATUS_DRAFT = 2;
+    const MAX_PER_PAGE = 6;
 
     /**
      * @return int
@@ -144,7 +150,7 @@ class Article
      */
     public function setStatus(int $status): Article
     {
-        if (!in_array($status, self::getStatuses())) {
+        if ( ! in_array($status, self::getStatuses())) {
             throw new \Exception("Status value not valid");
         }
 
@@ -181,4 +187,17 @@ class Article
 
         return $this;
     }
+
+    /** @PrePersist */
+    public function doStuffOnPrePersist()
+    {
+            $this->createdAt = date('d/m/Y');
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+
 }

@@ -24,7 +24,7 @@ if (isset($session->username)) {
     } else {
         $statuses               = [];
         $statuses['Published']  = \App\Entity\Article::STATUS_PUBLISHED;
-        $statuses['Unublished'] = \App\Entity\Article::STATUS_UNPUBLISHED;
+        $statuses['Unpublished'] = \App\Entity\Article::STATUS_UNPUBLISHED;
         $statuses['Draft']      = \App\Entity\Article::STATUS_DRAFT;
 
         $users = $container->get('doctrine.repository.user')->findAll();

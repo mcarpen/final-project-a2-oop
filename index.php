@@ -1,41 +1,51 @@
 <?php
+
+use App\Entity\Article;
+
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
 $container = require __DIR__ . '/bootstrap.php';
 
-use App\Entity\User;
+/** @var \App\Repository\ArticleRepository $repo */
+$repo = $container->get('doctrine.repository.article');
 
-/** @var \Doctrine\ORM\EntityManager $em */
-$em = $container->get('doctrine');
+$page = $_GET['page'] ?? 1;
 
-// 1. Create a User
-/** @var \Doctrine\ORM\EntityRepository $userRepository */
-$userRepository = $container->get('doctrine.repository.user');
+$articles = $repo->loadAll(Article::MAX_PER_PAGE, ($page - 1) * Article::MAX_PER_PAGE, true);
+$count    = $repo->count();
 
-/** @var User $admin */
-$admin = $userRepository->findOneBy(['username' => 'admin']);
+$maxPagination = (int)ceil($count / Article::MAX_PER_PAGE);
 
-// 2. Link a User to an Article
-/** @var \App\Repository\ArticleRepository $articleRepository */
-$articleRepository = $container->get('doctrine.repository.article');
+$minPage = (int)max(1, ($page - 5));
+$maxPage = (int)min($maxPagination, ($page + 5));
 
-/** @var \App\Entity\Article $article */
-$article = $articleRepository->find(4);
+$max = 0;
 
-/** @var Twig_Environment $twig */
-$twig = $container->get('twig');
+while (abs($minPage - $maxPage) < 10) {
+    if ($minPage > 1) {
+        $minPage--;
+    }
+    if ($maxPage < $maxPagination) {
+        $maxPage++;
+    }
+
+    $max++;
+
+    if ($max > 10) {
+        break;
+    }
+}
 
 isset($_GET['loggedIn']) ? $loggedIn = true : $loggedIn = false;
 isset($_GET['loggedOut']) ? $loggedOut = true : $loggedOut = false;
 
-echo $twig->render('homepage.html.twig', [
-    'title'     => 'Homepage',
-    'loggedIn'  => $loggedIn,
-    'loggedOut' => $loggedOut,
+echo $container->get('twig')->render('homepage.html.twig', [
+    'title'         => 'Homepage',
+    'articles'      => $articles,
+    'loggedIn'      => $loggedIn,
+    'loggedOut'     => $loggedOut,
+    'currentPage'   => $page,
+    'maxPagination' => $maxPagination,
+    'minPage'       => $minPage,
+    'maxPage'       => $maxPage,
+    'count'         => $count,
 ]);
-
-/*
-$article->setAuthor($admin);
-dump($article);
-
-$em->flush();
-*/

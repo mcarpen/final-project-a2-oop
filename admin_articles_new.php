@@ -20,7 +20,7 @@ if (isset($session->username)) {
         $em->persist($article);
         $em->flush();
 
-        header('Location: admin_articles_new.php?articleCreated');
+        header('Location: admin_articles_list.php?articleCreated');
     } else {
         $statuses               = [];
         $statuses['Published']  = \App\Entity\Article::STATUS_PUBLISHED;

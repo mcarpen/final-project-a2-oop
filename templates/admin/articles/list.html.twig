@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    {% if userCreated %}
+    {% if articleCreated %}
         <div class="alert alert-success" role="alert">
-            User has been successfully created
+            Article has been successfully created
         </div>
-    {% elseif userDeleted %}
+    {% elseif articleDeleted %}
         <div class="alert alert-success" role="alert">
-            User has been successfully deleted
+            Article has been successfully deleted
         </div>
     {% elseif notFound %}
         <div class="alert alert-warning" role="alert">
-            No user found with id {{ id }} :(
+            No article found with id {{ id }} :(
         </div>
     {% endif %}
     <div class="card">
         <div class="card-header">
             <h5 class="float-left">{{ title }}</h5>
             <div class="float-right">
-                <a href="admin_users_new.php" role="button" class="btn btn-outline-primary">Create new user</a>
+                <a href="admin_articles_new.php" role="button" class="btn btn-outline-primary">Create new article</a>
             </div>
         </div>
         <div class="card-body">
@@ -26,7 +26,9 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Author</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -36,15 +38,25 @@
                 {% else %}
                     {% set i = 1 %}
                 {% endif %}
-                {% for user in users %}
+                {% for article in articles %}
                     <tr>
                         <th scope="row">{{ i }}</th>
-                        <td>{{ user.username }}</td>
+                        <td>{{ article.name }}</td>
                         <td>
-                            <a href="admin_users_edit.php?id={{ user.id }}&page={{ currentPage }}" role="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit user">
+                            {% if article.status is constant('STATUS_PUBLISHED', article) %}
+                                <span class="badge badge-primary">Published</span>
+                            {% elseif article.status is constant('STATUS_UNPUBLISHED', article) %}
+                                <span class="badge badge-secondary">Unpublished</span>
+                            {% else %}
+                                <span class="badge badge-info">Draft</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ article.author }}</td>
+                        <td>
+                            <a href="admin_articles_edit.php?id={{ article.id }}&page={{ currentPage }}" role="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit article">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a href="admin_users_delete.php?id={{ user.id }}" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete user">
+                            <a href="admin_articles_delete.php?id={{ article.id }}" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete article">
                                 <i class="fa fa-trash-o"></i>
                             </a>
                         </td>

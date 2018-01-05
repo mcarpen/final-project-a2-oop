@@ -35,6 +35,11 @@ class User
 
     const MAX_PER_PAGE = 100;
 
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     /**
      * @return int
      */

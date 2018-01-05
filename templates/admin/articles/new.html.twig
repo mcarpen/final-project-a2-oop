@@ -21,9 +21,9 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" id="status" name="status">
-                        <option value="0">Published</option>
-                        <option value="1">Unpublished</option>
-                        <option value="2">Draft</option>
+                        {% for status,name in statuses|keys %}
+                            <option value="{{ status }}">{{ name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">

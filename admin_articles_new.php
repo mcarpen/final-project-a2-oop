@@ -22,11 +22,17 @@ if (isset($session->username)) {
 
         header('Location: admin_articles_new.php?articleCreated');
     } else {
+        $statuses               = [];
+        $statuses['Published']  = \App\Entity\Article::STATUS_PUBLISHED;
+        $statuses['Unublished'] = \App\Entity\Article::STATUS_UNPUBLISHED;
+        $statuses['Draft']      = \App\Entity\Article::STATUS_DRAFT;
+
         $users = $container->get('doctrine.repository.user')->findAll();
 
         echo $container->get('twig')->render('admin/articles/new.html.twig', [
-            'title' => 'Create new article',
-            'users' => $users,
+            'title'    => 'Create new article',
+            'statuses' => $statuses,
+            'users'    => $users,
         ]);
     }
 } else {

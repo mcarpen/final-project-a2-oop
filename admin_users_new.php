@@ -15,7 +15,7 @@ if (isset($session->username)) {
         $em->persist($user);
         $em->flush();
 
-        header('Location: admin_users_list.php?userCreated=' . $_POST['username']);
+        header('Location: admin_users_list.php?userCreated');
     } else {
         echo $container->get('twig')->render('admin/users/new.html.twig', [
             'title' => 'Create new user',

@@ -37,6 +37,14 @@ while (abs($minPage - $maxPage) < 10) {
 
 isset($_GET['loggedIn']) ? $loggedIn = true : $loggedIn = false;
 isset($_GET['loggedOut']) ? $loggedOut = true : $loggedOut = false;
+isset($_GET['notFound']) ? $notFound = true : $notFound = false;
+if (isset($_GET['notFound']) && isset($_GET['id'])) {
+    $notFound = true;
+    $id       = $_GET['id'];
+} else {
+    $notFound = false;
+    $id       = null;
+}
 
 echo $container->get('twig')->render('homepage.html.twig', [
     'title'         => 'Homepage',
@@ -48,4 +56,6 @@ echo $container->get('twig')->render('homepage.html.twig', [
     'minPage'       => $minPage,
     'maxPage'       => $maxPage,
     'count'         => $count,
+    'notFound'      => $notFound,
+    'id'            => $id,
 ]);

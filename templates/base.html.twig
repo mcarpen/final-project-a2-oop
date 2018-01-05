@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
@@ -50,7 +50,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <span class="navbar-text mr-3">Welcome {{ username }}</span>
+                        <span class="navbar-text mr-3">Welcome {{ connectedUser }}</span>
                         <a href="logout.php" class="btn btn-outline-success my-2 my-sm-0">Log out</a>
                     {% else %}
                         <a href="login.php" class="btn btn-outline-success my-2 my-sm-0">Sign in</a>

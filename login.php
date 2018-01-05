@@ -10,7 +10,9 @@ if (! isset($session->username)) {
     if (isset($_POST) && ! empty($_POST)) {
         $user = $container->get('doctrine.repository.user')->findOneBy(['username' => $_POST['username']]);
         if (isset($user) && ! empty($user)) {
-            if ($user->getPassword() === $_POST['password']) {
+            $checkPwd = password_verify($_POST['password'], $user->getPassword());
+
+            if ($checkPwd) {
                 $session->username = $user->getUsername();
                 header('Location: index.php?loggedIn');
             } else {

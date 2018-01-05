@@ -90,6 +90,8 @@ class User
      */
     public function setPassword(string $password): User
     {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
         $this->password = $password;
 
         return $this;

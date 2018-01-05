@@ -89,7 +89,7 @@ $container
 
 $container->get('twig')->addGlobal('isLogged', $isLogged);
 if ($isLogged) {
-    $container->get('twig')->addGlobal('username', $session->username);
+    $container->get('twig')->addGlobal('connectedUser', $session->username);
 }
 
 return $container;

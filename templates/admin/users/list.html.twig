@@ -9,6 +9,10 @@
         <div class="alert alert-success" role="alert">
             User has been successfully deleted
         </div>
+    {% elseif notFound %}
+        <div class="alert alert-warning" role="alert">
+            No user found with id {{ id }} :(
+        </div>
     {% endif %}
     <div class="card">
         <div class="card-header">
@@ -37,7 +41,7 @@
                         <th scope="row">{{ i }}</th>
                         <td>{{ user.username }}</td>
                         <td>
-                            <a href="#" role="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit user">
+                            <a href="admin_users_edit.php?id={{ user.id }}&page={{ currentPage }}" role="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit user">
                                 <i class="fa fa-pencil"></i>
                             </a>
                             <a href="admin_users_delete.php?id={{ user.id }}" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete user">
@@ -55,10 +59,8 @@
     {% if count > 100 %}
         <nav class="mt-3" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="?page=1">First page</a></li>
-                <li class="page-item {% if currentPage <= 1 %} disabled {% endif %}"><a class="page-link"
-                                                                                        href="?page={{ currentPage - 1 }}">&laquo;</a>
-                </li>
+                <li class="page-item {% if currentPage <= 1 %} disabled {% endif %}"><a class="page-link" href="?page=1">First page</a></li>
+                <li class="page-item {% if currentPage <= 1 %} disabled {% endif %}"><a class="page-link" href="?page={{ currentPage - 1 }}">&laquo;</a></li>
                 {% for i in minPage..(currentPage - 1) if (currentPage > 1) %}
                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                 {% endfor %}
@@ -66,10 +68,8 @@
                     {% for i in (currentPage + 1)..maxPage if (currentPage < maxPagination) %}
                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                 {% endfor %}
-                <li class="page-item {% if currentPage >= maxPagination %} disabled {% endif %}"><a class="page-link"
-                                                                                                    href="?page={{ currentPage + 1 }}">&raquo;</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="?page={{ maxPagination }}">Last page</a></li>
+                <li class="page-item {% if currentPage >= maxPagination %} disabled {% endif %}"><a class="page-link" href="?page={{ currentPage + 1 }}">&raquo;</a></li>
+                <li class="page-item {% if currentPage >= maxPagination %} disabled {% endif %}"><a class="page-link" href="?page={{ maxPagination }}">Last page</a></li>
             </ul>
         </nav>
     {% endif %}

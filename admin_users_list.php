@@ -38,6 +38,13 @@ if (isset($session->username)) {
 
     isset($_GET['userCreated']) ? $userCreated = true : $userCreated = false;
     isset($_GET['userDeleted']) ? $userDeleted = true : $userDeleted = false;
+    if (isset($_GET['notFound']) && isset($_GET['id'])) {
+        $notFound = true;
+        $id       = $_GET['id'];
+    } else {
+        $notFound = false;
+        $id       = null;
+    }
 
     echo $container->get('twig')->render('admin/users/list.html.twig', [
         'title'         => 'Users\' list',
@@ -49,6 +56,8 @@ if (isset($session->username)) {
         'userCreated'   => $userCreated,
         'userDeleted'   => $userDeleted,
         'count'         => $count,
+        'notFound'      => $notFound,
+        'id'            => $id,
     ]);
 } else {
     header('Location: login.php?accessDenied');

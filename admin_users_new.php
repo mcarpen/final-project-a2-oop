@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
-
 $container = require __DIR__ . '/bootstrap.php';
 
 if (isset($session->username)) {
@@ -16,9 +15,7 @@ if (isset($session->username)) {
         $em->persist($user);
         $em->flush();
 
-        echo $container->get('twig')->render('admin/users/new.html.twig', [
-            'title' => 'Create new user',
-        ]);
+        header('Location: admin_users_list.php?userCreated=' . $_POST['username']);
     } else {
         echo $container->get('twig')->render('admin/users/new.html.twig', [
             'title' => 'Create new user',

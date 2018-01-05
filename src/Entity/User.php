@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
 class User
@@ -32,6 +32,8 @@ class User
      * @ORM\Column(type="string")
      */
     private $password;
+
+    const MAX_PER_PAGE = 100;
 
     /**
      * @return int

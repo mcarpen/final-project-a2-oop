@@ -2,9 +2,13 @@
 
 {% block main %}
     <div class="card">
-        <h5 class="card-header">Create new user</h5>
+        <div class="card-header">
+            <h5 class="float-left">{{ title }}</h5>
+            <div class="float-right">
+                <a href="admin_users_list.php" role="button" class="btn btn-outline-primary">Back to list</a>
+            </div>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">Here you go...</h5>
             <form method="post">
                 <div class="form-group">
                     <label for="username">Username</label>

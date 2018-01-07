@@ -11,10 +11,10 @@ if (isset($session->username)) {
     /** @var \App\Repository\ArticleRepository $repo */
     $repo = $container->get('doctrine.repository.article');
 
-    $articles = $repo->loadAll(Article::MAX_PER_PAGE, ($page - 1) * Article::MAX_PER_PAGE);
+    $articles = $repo->loadAll(Article::MAX_PER_PAGE_ADMIN, ($page - 1) * Article::MAX_PER_PAGE_ADMIN);
     $count    = $repo->count();
 
-    $maxPagination = (int)ceil($count / Article::MAX_PER_PAGE);
+    $maxPagination = (int)ceil($count / Article::MAX_PER_PAGE_ADMIN);
 
     $minPage = (int)max(1, ($page - 5));
     $maxPage = (int)min($maxPagination, ($page + 5));
